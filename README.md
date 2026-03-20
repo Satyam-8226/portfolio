@@ -1,16 +1,81 @@
-# React + Vite
+# Satyam Pandey Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-ready React + Tailwind portfolio showcasing full-stack work, projects, and developer profiles.
 
-Currently, two official plugins are available:
+## Description
+This portfolio site is designed to highlight Satyam’s skills, projects, and professional profile in a clean, responsive UI with modern gradients, animations, and smooth navigation.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
+- React
+- Vite
+- Tailwind CSS
+- PostCSS + Autoprefixer
+- React Icons
 
-## React Compiler
+## Features
+- Resume button opens `/resume.pdf` in a new tab
+- Hero section with gradient styling and CTA
+- Projects section with cards and responsive grid
+- Contact form and smooth scroll navigation
+- Codolio and LeetCode profile links
+- Responsive design for desktop and mobile
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Installation
+1. Clone repository
+```bash
+git clone <repo-url>
+cd portfolio
+```
+2. Install dependencies
+```bash
+npm install
+```
+3. Start dev server
+```bash
+npm run dev
+```
+4. Build for production
+```bash
+npm run build
+```
 
-## Expanding the ESLint configuration
+## Deployment
+### Vercel
+- Connect your repository to Vercel
+- Set build command: `npm run build`
+- Set output directory: `dist`
+- Deploy
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Netlify
+- Connect repository to Netlify
+- Set build command: `npm run build`
+- Set publish directory: `dist`
+- Deploy
+
+## Folder Structure
+```
+public/
+  resume.pdf
+src/
+  components/
+    Navbar.jsx
+    Hero.jsx
+    About.jsx
+    Projects.jsx
+    Contact.jsx
+    Footer.jsx
+  data/projects.js
+  App.jsx
+  main.jsx
+  index.css
+tailwind.config.js
+postcss.config.js
+package.json
+README.md
+```
+
+## Screenshots
+- Add screenshot placeholders here after building.
+
+## Project Summary
+A modern, responsive portfolio built with React and Tailwind, featuring smooth UX, project showcases, quick resume access, and developer profile links for Codolio and LeetCode.

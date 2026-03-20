@@ -41,7 +41,9 @@ const Hero = () => {
             Contact Me
           </button>
           <a
-            href="#"
+            href="/resume.pdf"
+            target="_blank"
+            rel="noreferrer"
             className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
           >
             Resume
