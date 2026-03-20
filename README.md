@@ -39,18 +39,6 @@ npm run dev
 npm run build
 ```
 
-## Deployment
-### Vercel
-- Connect your repository to Vercel
-- Set build command: `npm run build`
-- Set output directory: `dist`
-- Deploy
-
-### Netlify
-- Connect repository to Netlify
-- Set build command: `npm run build`
-- Set publish directory: `dist`
-- Deploy
 
 ## Folder Structure
 ```
@@ -74,8 +62,6 @@ package.json
 README.md
 ```
 
-## Screenshots
-- Add screenshot placeholders here after building.
 
 ## Project Summary
 A modern, responsive portfolio built with React and Tailwind, featuring smooth UX, project showcases, quick resume access, and developer profile links for Codolio and LeetCode.
