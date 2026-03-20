@@ -14,12 +14,12 @@ const Projects = () => {
           {projects.map((project) => (
             <div
               key={project.id}
-              className={`bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-2xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 transform hover:-translate-y-4 border group ${
-                project.featured ? 'md:col-span-2 lg:col-span-2 border-blue-500/50 bg-gradient-to-br from-blue-900/20 to-purple-900/20' : 'border-gray-700 hover:border-gray-600'
+              className={`bg-linear-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-2xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 transform hover:-translate-y-4 border group ${
+                project.featured ? 'md:col-span-2 lg:col-span-2 border-blue-500/50 bg-linear-to-br from-blue-900/20 to-purple-900/20' : 'border-gray-700 hover:border-gray-600'
               }`}
             >
               {project.featured && (
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center py-3 text-sm font-bold uppercase tracking-wide">
+                <div className="bg-linear-to-r from-blue-600 to-purple-600 text-white text-center py-3 text-sm font-bold uppercase tracking-wide">
                   ⭐ Featured Project
                 </div>
               )}
