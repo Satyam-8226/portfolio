@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
+
+const SERVICE_ID = 'service_z6lsnv6';
+const TEMPLATE_ID = 'template_58usukj';
+const PUBLIC_KEY = 'g9r_FdlkCEWQttqON';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    user_name: '',
+    user_email: '',
     message: ''
   });
+  const [isSending, setIsSending] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -14,12 +21,40 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      setStatusMessage('EmailJS is not configured. Please set SERVICE_ID, TEMPLATE_ID, and PUBLIC_KEY.');
+      setIsSending(false);
+      console.error('EmailJS configuration is incomplete:', { SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY });
+      return;
+    }
+
+    setIsSending(true);
+    setStatusMessage('');
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY)
+      .then(() => {
+        setStatusMessage('Message sent successfully! Thank you.');
+        setFormData({ user_name: '', user_email: '', message: '' });
+      })
+      .catch((error) => {
+        const errorMessage = error?.text || error?.message || JSON.stringify(error);
+        const userFriendly = errorMessage.includes('unknown service')
+          ? 'Service not found. Verify your EmailJS service ID.'
+          : errorMessage.includes('unknown template')
+          ? 'Template not found. Verify your EmailJS template ID.'
+          : errorMessage.includes('invalid key') || errorMessage.includes('unauthorized')
+          ? 'Public key invalid. Verify your EmailJS public key.'
+          : 'Failed to send message. Please try again later.';
+
+        setStatusMessage(userFriendly);
+        console.error('EmailJS send error:', error);
+      })
+      .finally(() => {
+        setIsSending(false);
+      });
   };
 
   return (
@@ -81,32 +116,32 @@ const Contact = () => {
           </div>
 
           <div className="animate-fade-in">
-            <form onSubmit={handleSubmit} className="space-y-6 bg-gray-800/30 border border-gray-700/50 rounded-2xl p-8">
+            <form onSubmit={sendEmail} className="space-y-6 bg-gray-800/30 border border-gray-700/50 rounded-2xl p-8">
               <div>
-                <label htmlFor="name" className="block text-sm font-semibold text-gray-300 mb-3">
+                <label htmlFor="user_name" className="block text-sm font-semibold text-gray-300 mb-3">
                   Full Name
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                  id="user_name"
+                  name="user_name"
+                  value={formData.user_name}
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-3">
+                <label htmlFor="user_email" className="block text-sm font-semibold text-gray-300 mb-3">
                   Email Address
                 </label>
                 <input
                   type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
+                  id="user_email"
+                  name="user_email"
+                  value={formData.user_email}
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
@@ -130,11 +165,18 @@ const Contact = () => {
                 />
               </div>
 
+              {statusMessage && (
+                <p className={`text-sm ${statusMessage.includes('successfully') ? 'text-green-400' : 'text-red-400'}`}>
+                  {statusMessage}
+                </p>
+              )}
+
               <button
                 type="submit"
-                className="w-full bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl shadow-blue-500/20 mt-2"
+                disabled={isSending}
+                className={`w-full ${isSending ? 'bg-gray-500 cursor-not-allowed' : 'bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500'} text-white py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform ${isSending ? '' : 'hover:scale-105'} shadow-xl shadow-blue-500/20 mt-2`}
               >
-                Send Message
+                {isSending ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
