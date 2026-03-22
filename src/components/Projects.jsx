@@ -1,76 +1,180 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 import { projects } from '../data/projects';
+import FeaturedProject from './FeaturedProject';
+
+const categories = ['All', 'Full Stack', 'AI/ML', 'Frontend'];
 
 const Projects = () => {
-  return (
-    <section id="projects" className="py-28 bg-gray-900 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Featured Projects</h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">Showcasing my best work with modern technologies</p>
-        </div>
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [selectedProject, setSelectedProject] = useState(null);
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-max">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              className={`bg-linear-to-br from-gray-800 to-gray-900 rounded-2xl overflow-hidden shadow-2xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 transform hover:-translate-y-4 border group ${
-                project.featured ? 'md:col-span-2 lg:col-span-2 border-blue-500/50 bg-linear-to-br from-blue-900/20 to-purple-900/20' : 'border-gray-700 hover:border-gray-600'
-              }`}
-            >
-              {project.featured && (
-                <div className="bg-linear-to-r from-blue-600 to-purple-600 text-white text-center py-3 text-sm font-bold uppercase tracking-wide">
-                  ⭐ Featured Project
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === 'All') return projects;
+    return projects.filter((project) => project.category === activeCategory);
+  }, [activeCategory]);
+
+  const featuredProject = projects.find((project) => project.featured) || projects[0];
+
+  const ProjectCard = ({ project, index, onSelect }) => {
+    const [isFlipped, setIsFlipped] = useState(false);
+    const [hoverPos, setHoverPos] = useState({ mx: '50%', my: '50%' });
+
+    const onMouseMove = (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const mx = `${((e.clientX - rect.left) / rect.width) * 100}%`;
+      const my = `${((e.clientY - rect.top) / rect.height) * 100}%`;
+      setHoverPos({ mx, my });
+    };
+
+    return (
+      <motion.div
+        className="card-glow relative"
+        style={{ '--mx': hoverPos.mx, '--my': hoverPos.my }}
+        onMouseMove={onMouseMove}
+        onMouseLeave={() => setHoverPos({ mx: '50%', my: '50%' })}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.3, delay: index * 0.05 }}
+      >
+        <div className="cursor-glow" />
+        <div className="card-overlay" />
+        <div className="card-inset p-4 md:p-5 min-h-55 relative">
+          <motion.div
+            className="relative h-full"
+            animate={{ rotateY: isFlipped ? 180 : 0 }}
+            transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+            style={{ transformStyle: 'preserve-3d' }}
+            onMouseEnter={() => setIsFlipped(true)}
+            onMouseLeave={() => setIsFlipped(false)}
+          >
+            <div className="absolute inset-0 backface-hidden">
+              <button
+                onClick={() => onSelect(project)}
+                className="w-full h-full text-left"
+              >
+                <div className="flex items-start justify-between">
+                  <span className="text-xs uppercase tracking-wider text-blue-300 font-semibold">{project.category}</span>
+                  <span className="text-xs text-slate-300 border border-slate-600 px-2 py-1 rounded-full">Details</span>
                 </div>
-              )}
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-300 transition-colors">{project.title}</h3>
-                <p className="text-gray-300 mb-6 leading-relaxed text-base">{project.description}</p>
-
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-gray-300 mb-3">Tech Stack</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="bg-blue-600/20 text-blue-300 border border-blue-500/30 text-xs px-3 py-1.5 rounded-lg hover:bg-blue-600/40 transition-colors"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                <h3 className="text-2xl font-bold text-white mt-3">{project.title}</h3>
+                <p className="mt-2 text-slate-300 text-sm leading-relaxed">{project.description}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {project.techStack.map((tech, tid) => (
+                    <span key={tid} className="text-xs bg-slate-800/80 border border-slate-600 rounded-full px-2 py-1 text-slate-200">{tech}</span>
+                  ))}
                 </div>
-
-                {project.features && (
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-gray-300 mb-3">Key Features</h4>
-                    <ul className="text-gray-400 text-sm space-y-2">
-                      {project.features.map((feature, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <span className="text-blue-400 mt-1">▸</span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                <a
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gray-700/50 border border-gray-600 hover:border-blue-400 hover:bg-blue-600/20 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 font-semibold"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                  GitHub
-                </a>
+              </button>
+            </div>
+            <div className="absolute inset-0 rotate-y-180 backface-hidden pr-0 md:pr-1">
+              <div className="bg-slate-900/90 border border-slate-600/40 rounded-xl p-3 h-full">
+                <h4 className="text-sm uppercase tracking-[0.18em] text-blue-300 font-semibold">Features</h4>
+                <ul className="mt-2 list-disc list-inside text-slate-200 text-sm space-y-1">
+                  {project.features.map((feature, fidx) => <li key={fidx}>{feature}</li>)}
+                </ul>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {project.techStack.map((tech, tid) => (
+                    <span key={tid} className="text-[11px] bg-blue-500/20 border border-blue-400/30 text-blue-200 px-2 py-1 rounded-full">{tech}</span>
+                  ))}
+                </div>
+                <div className="mt-4 flex gap-2 flex-wrap">
+                  <a href={project.liveDemo || '#'} target="_blank" rel="noreferrer" className="text-xs bg-blue-500 text-white px-2 py-1 rounded-md">Live Demo</a>
+                  <a href={project.githubLink} target="_blank" rel="noreferrer" className="text-xs border border-slate-500 text-slate-200 px-2 py-1 rounded-md">GitHub</a>
+                </div>
               </div>
             </div>
+          </motion.div>
+        </div>
+      </motion.div>
+    );
+  };
+
+  return (
+    <section id="projects" className="py-28 bg-slate-950/80 relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="text-center">
+          <h2 className="text-5xl md:text-6xl font-bold text-white">Projects</h2>
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto mt-3">Explore production-ready applications, architecture decisions, and modern engineering practices.</p>
+        </div>
+
+        <FeaturedProject project={featuredProject} />
+
+        <div className="bg-slate-900/40 p-3 rounded-2xl border border-slate-700">
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition ${
+                  activeCategory === category
+                    ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30'
+                    : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-2">
+          {filteredProjects.map((project, idx) => (
+            <ProjectCard key={project.id} project={project} index={idx} onSelect={setSelectedProject} />
           ))}
         </div>
       </div>
+
+      {selectedProject && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setSelectedProject(null)}>
+          <motion.div
+            className="w-full max-w-3xl rounded-3xl border border-slate-600 bg-slate-900 p-4 md:p-5 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+          >
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <p className="text-xs uppercase text-blue-300 tracking-wider font-semibold">Project Modal</p>
+                <h3 className="text-2xl font-bold text-white mt-1">{selectedProject.title}</h3>
+              </div>
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="rounded-full border border-slate-600 text-slate-200 px-2 py-1 text-base hover:border-blue-400"
+              >
+                ✕
+              </button>
+            </div>
+            <p className="mt-3 text-slate-300">{selectedProject.description}</p>
+
+            <div className="mt-4 grid md:grid-cols-2 gap-3">
+              <div className="bg-slate-800/80 border border-slate-700 p-3 rounded-xl">
+                <h4 className="text-xs uppercase tracking-wider font-semibold text-blue-300">Features</h4>
+                <ul className="mt-2 text-slate-200 text-sm list-disc list-inside space-y-1">
+                  {selectedProject.features.map((feature, i) => <li key={i}>{feature}</li>)}
+                </ul>
+              </div>
+              <div className="bg-slate-800/80 border border-slate-700 p-3 rounded-xl">
+                <h4 className="text-xs uppercase tracking-wider font-semibold text-blue-300">Tech Stack</h4>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {selectedProject.techStack.map((tech, i) => <span key={i} className="text-xs bg-blue-500/20 border border-blue-400/20 rounded-full px-2 py-1 text-blue-200">{tech}</span>)}
+                </div>
+              </div>
+            </div>
+
+            {selectedProject.iframeSrc && (
+              <div className="mt-4 rounded-xl border border-slate-700 overflow-hidden">
+                <iframe src={selectedProject.iframeSrc} title="Live Preview" className="w-full h-56 md:h-72" loading="lazy" />
+              </div>
+            )}
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a href={selectedProject.liveDemo || '#'} target="_blank" rel="noreferrer" className="rounded-lg bg-blue-500 text-white px-3 py-2 text-xs font-medium">Live Demo</a>
+              <a href={selectedProject.githubLink} target="_blank" rel="noreferrer" className="rounded-lg border border-slate-600 text-slate-200 px-3 py-2 text-xs font-medium">View Code</a>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 };

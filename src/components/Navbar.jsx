@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Navbar = () => {
+const Navbar = ({ darkMode, setDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollToSection = (sectionId) => {
@@ -18,7 +18,7 @@ const Navbar = () => {
           <div className="shrink-0">
             <h1 className="text-2xl font-bold bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Satyam Pandey</h1>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex md:items-center md:gap-3">
             <div className="ml-10 flex items-baseline space-x-2 md:space-x-4">
               <button
                 onClick={() => scrollToSection('home')}
@@ -53,8 +53,26 @@ const Navbar = () => {
                 Resume
               </a>
             </div>
+
+            {/* DARK MODE BUTTON */}
+            <button
+              onClick={() => setDarkMode((prev) => !prev)}
+              className="text-gray-300 border border-gray-500 hover:border-blue-400 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? '☀️' : '🌙'}
+            </button>
           </div>
-          <div className="md:hidden">
+
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              onClick={() => setDarkMode((prev) => !prev)}
+              className="text-gray-300 border border-gray-500 hover:border-blue-400 px-2 py-1 rounded-lg text-sm font-medium transition-all duration-300"
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? '☀️' : '🌙'}
+            </button>
+
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-white focus:outline-none focus:text-white"
@@ -69,6 +87,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
+
         {isOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900 bg-opacity-90">
