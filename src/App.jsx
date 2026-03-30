@@ -3,6 +3,7 @@ import React, { Suspense, useEffect, useMemo, useState } from 'react';
 const Navbar = React.lazy(() => import('./components/Navbar'));
 const Hero = React.lazy(() => import('./components/Hero'));
 const About = React.lazy(() => import('./components/About'));
+const GitHubStats = React.lazy(() => import('./components/GitHubStats'));
 const Projects = React.lazy(() => import('./components/Projects'));
 const Contact = React.lazy(() => import('./components/Contact'));
 const Footer = React.lazy(() => import('./components/Footer'));
@@ -38,6 +39,7 @@ const App = () => {
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Hero />
         <About />
+        <GitHubStats />
         <Projects />
         <Contact />
         <Footer />
