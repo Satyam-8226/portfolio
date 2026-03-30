@@ -25,6 +25,7 @@ export default {
         'blink': 'blink 1s infinite',
         'float': 'float 3s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite',
+        'spinSlow': 'spin 6s linear infinite',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

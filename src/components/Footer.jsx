@@ -2,17 +2,12 @@ import React from 'react';
 import { SiLeetcode } from 'react-icons/si';
 import { FiCode, FiLinkedin, FiGithub } from 'react-icons/fi';
 
-const stats = [
-  { label: 'Problems Solved', value: '420+', color: 'bg-violet-500/20 border-violet-400/30', icon: '⌨️' },
-  { label: 'GitHub Repos', value: '24', color: 'bg-blue-500/20 border-blue-400/30', icon: '🐙' },
-  { label: 'Contributions', value: '1.2k', color: 'bg-emerald-500/20 border-emerald-400/30', icon: '🚀' },
-];
-
 const Footer = () => {
   return (
     <footer className="bg-slate-950 border-t border-slate-800 py-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-3 items-start">
+        <div className="flex justify-between items-center flex-wrap gap-6">
+          {/* Social Links Section */}
           <div>
             <p className="text-slate-300 font-semibold">Developer Profiles</p>
             <p className="mt-1 text-slate-400 text-sm">Follow my coding journey and open-source contributions.</p>
@@ -32,19 +27,11 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-2">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {stats.map((item) => (
-                <div key={item.label} className={`rounded-2xl border ${item.color} p-4 bg-slate-900/70 backdrop-blur-md shadow-lg hover:-translate-y-1 transition`}>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xl">{item.icon}</span>
-                    <span className="text-xs uppercase tracking-[0.2em] text-slate-300">{item.label}</span>
-                  </div>
-                  <p className="mt-3 text-3xl font-bold text-white">{item.value}</p>
-                  <p className="mt-1 text-xs text-slate-300">Based on current milestones</p>
-                </div>
-              ))}
-            </div>
+          {/* LeetCode Stat Card */}
+          <div className="bg-slate-900/70 border border-gray-700 rounded-xl px-5 py-4 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 min-w-[160px]">
+            <p className="text-xs tracking-widest text-gray-400 uppercase">Problems Solved</p>
+            <h2 className="text-2xl font-bold text-white mt-1">420+</h2>
+            <p className="text-xs text-gray-500">LeetCode</p>
           </div>
         </div>
 

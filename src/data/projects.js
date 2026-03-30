@@ -11,13 +11,13 @@ export const projects = [
     featured: true
   },
   {
-    id: 2,
-    title: "Personal Portfolio",
-    description: "Modern developer portfolio built with React and Tailwind showing projects and contact flow.",
-    category: "Frontend",
-    techStack: ["React", "Tailwind CSS", "Framer Motion"],
-    features: ["Responsive design", "Smooth section navigation", "Animated components"],
-    githubLink: "https://github.com/Satyam-8226/portfolio",
+    id: 3,
+    title: "VideoTube",
+    description: "A full-stack video sharing platform inspired by YouTube, with features like video uploads, likes, comments, authentication, and subscriptions.",
+    category: "Full Stack",
+    techStack: ["React", "Node.js", "Express", "MongoDB"],
+    features: ["Video uploads and streaming", "User authentication", "Likes and comments system", "Subscription management"],
+    githubLink: "https://github.com/Satyam-8226/videotube",
     liveDemo: "",
     featured: false
   }

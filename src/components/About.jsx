@@ -27,10 +27,10 @@ const About = () => {
       description: 'Developed multiple React applications with modern UI/UX practices and responsive design.'
     },
     {
-      year: '2022',
+      year: '2025',
       title: 'Learning Journey',
       company: 'Self-Taught',
-      description: 'Mastered full-stack development through online courses, building projects, and contributing to open source.'
+      description: 'Started my development journey in 2025, focusing on full-stack development using React, Node.js, and modern technologies. Actively building real-world projects and improving problem-solving skills.'
     }
   ];
 

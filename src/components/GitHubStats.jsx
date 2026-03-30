@@ -1,78 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaStar, FaCodeBranch, FaEye, FaCalendarAlt } from 'react-icons/fa';
+import { FaGithub, FaCode, FaUsers } from 'react-icons/fa';
+import useDeveloperData from '../hooks/useDeveloperData';
 
-const GitHubStats = () => {
-  const [userData, setUserData] = useState(null);
-  const [repos, setRepos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const DeveloperProfiles = () => {
+  const { data, loading, error } = useDeveloperData();
 
-  const username = 'Satyam-8226'; // Replace with actual GitHub username
-
-  useEffect(() => {
-    const fetchGitHubData = async () => {
-      try {
-        setLoading(true);
-        const [userResponse, reposResponse] = await Promise.all([
-          axios.get(`https://api.github.com/users/${username}`),
-          axios.get(`https://api.github.com/users/${username}/repos?sort=updated&per_page=10`)
-        ]);
-
-        setUserData(userResponse.data);
-        // Sort repos by stars and recency
-        const sortedRepos = reposResponse.data
-          .filter(repo => !repo.fork && !repo.private)
-          .sort((a, b) => {
-            const aScore = a.stargazers_count * 2 + (new Date(a.updated_at) - new Date('2020-01-01')) / (1000 * 60 * 60 * 24);
-            const bScore = b.stargazers_count * 2 + (new Date(b.updated_at) - new Date('2020-01-01')) / (1000 * 60 * 60 * 24);
-            return bScore - aScore;
-          })
-          .slice(0, 6);
-
-        setRepos(sortedRepos);
-        setError(null);
-      } catch (err) {
-        console.error('GitHub API error:', err);
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGitHubData();
-  }, [username]);
-
-  if (loading) {
-    return (
-      <section id="github" className="py-28 bg-slate-950/80 relative">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">GitHub Activity</h2>
-            <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
+  // Don't render if GitHub data failed
+  if (error && !data) {
+    return null;
   }
 
-  if (error || !userData || repos.length === 0) {
-    return null; // Remove section if data fails or is not meaningful
-  }
+  const statCards = [
+    {
+      icon: FaGithub,
+      label: 'GitHub Repos',
+      value: data?.repos || 0,
+      loading,
+      color: 'from-blue-500 to-blue-600'
+    },
+    {
+      icon: FaUsers,
+      label: 'Followers',
+      value: data?.followers || 0,
+      loading,
+      color: 'from-purple-500 to-purple-600'
+    }
+  ];
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+  // Only add LeetCode if data is available
+  if (data?.problemsSolved && data.problemsSolved > 0) {
+    statCards.push({
+      icon: FaCode,
+      label: 'Problems Solved',
+      value: data.problemsSolved,
+      loading,
+      color: 'from-green-500 to-green-600'
     });
-  };
+  }
 
   return (
-    <section id="github" className="py-28 bg-slate-950/80 relative">
+    <section id="profiles" className="py-28 bg-slate-950/80 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h2
@@ -81,7 +49,7 @@ const GitHubStats = () => {
             viewport={{ once: true }}
             className="text-5xl md:text-6xl font-bold text-white mb-4"
           >
-            GitHub Activity
+            Developer Profiles
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -90,7 +58,7 @@ const GitHubStats = () => {
             transition={{ delay: 0.1 }}
             className="text-gray-400 text-lg max-w-2xl mx-auto"
           >
-            Real-time insights from my GitHub profile
+            Real-time insights from my coding journey
           </motion.p>
         </div>
 
@@ -100,100 +68,45 @@ const GitHubStats = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+          className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
         >
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-400/50 transition-all duration-300">
-            <div className="text-3xl font-bold text-white mb-2">{userData.public_repos}</div>
-            <div className="text-slate-400 text-sm">Public Repos</div>
-          </div>
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-400/50 transition-all duration-300">
-            <div className="text-3xl font-bold text-white mb-2">{userData.followers}</div>
-            <div className="text-slate-400 text-sm">Followers</div>
-          </div>
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-400/50 transition-all duration-300">
-            <div className="text-3xl font-bold text-white mb-2">{userData.following}</div>
-            <div className="text-slate-400 text-sm">Following</div>
-          </div>
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-400/50 transition-all duration-300">
-            <div className="text-3xl font-bold text-white mb-2">
-              {repos.reduce((acc, repo) => acc + repo.stargazers_count, 0)}
-            </div>
-            <div className="text-slate-400 text-sm">Total Stars</div>
-          </div>
-        </motion.div>
-
-        {/* Top Repositories */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          <h3 className="text-3xl font-bold text-white mb-8 text-center">Top Repositories</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {repos.map((repo, index) => (
-              <motion.div
-                key={repo.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-400/10 transition-all duration-300 group"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h4 className="text-lg font-semibold text-white group-hover:text-blue-300 transition-colors truncate">
-                    {repo.name}
-                  </h4>
-                  <a
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-blue-400 transition-colors ml-2"
-                  >
-                    <FaGithub className="w-5 h-5" />
-                  </a>
+          {statCards.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 + 0.3 }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 20px 40px rgba(59, 130, 246, 0.2)"
+              }}
+              className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-400/50 transition-all duration-300 group"
+            >
+              <div className="flex flex-col items-center space-y-4">
+                <div className={`p-3 rounded-full bg-gradient-to-r ${stat.color} group-hover:shadow-lg group-hover:shadow-blue-400/30 transition-all duration-300`}>
+                  <stat.icon className="w-6 h-6 text-white" />
                 </div>
-
-                <p className="text-slate-400 text-sm mb-4 line-clamp-2">
-                  {repo.description || 'No description available'}
-                </p>
-
-                <div className="flex items-center justify-between text-sm text-slate-500 mb-3">
-                  {repo.language && (
-                    <div className="flex items-center gap-1">
-                      <FaCodeBranch className="w-4 h-4" />
-                      <span>{repo.language}</span>
+                <div>
+                  {stat.loading ? (
+                    <div className="animate-pulse">
+                      <div className="h-8 bg-slate-700 rounded w-16 mx-auto mb-2"></div>
+                      <div className="h-4 bg-slate-700 rounded w-20 mx-auto"></div>
                     </div>
+                  ) : (
+                    <>
+                      <div className="text-3xl font-bold text-white mb-1">{stat.value.toLocaleString()}</div>
+                      <div className="text-slate-400 text-sm">{stat.label}</div>
+                    </>
                   )}
-                  <div className="flex items-center gap-1">
-                    <FaCalendarAlt className="w-4 h-4" />
-                    <span>{formatDate(repo.updated_at)}</span>
-                  </div>
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-1 text-yellow-400">
-                      <FaStar className="w-4 h-4" />
-                      <span className="text-sm">{repo.stargazers_count}</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-slate-400">
-                      <FaCodeBranch className="w-4 h-4" />
-                      <span className="text-sm">{repo.forks_count}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 text-slate-400">
-                    <FaEye className="w-4 h-4" />
-                    <span className="text-sm">{repo.watchers_count}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
   );
 };
 
-export default GitHubStats;
+export default DeveloperProfiles;

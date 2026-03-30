@@ -31,9 +31,13 @@ const Projects = () => {
         whileHover={{ y: -10 }}
       >
         <motion.div
-          className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 h-full hover:border-blue-400/50 transition-all duration-300 overflow-hidden"
+          className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 h-full hover:border-blue-400/50 transition-all duration-300 overflow-hidden relative"
           whileHover={{ boxShadow: "0 20px 40px rgba(59, 130, 246, 0.1)" }}
         >
+          {/* Rotating glow border */}
+          <div className="absolute inset-0 rounded-xl p-[2px] bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-spinSlow">
+            <div className="w-full h-full bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-xl"></div>
+          </div>
           {/* Header */}
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
