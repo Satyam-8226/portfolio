@@ -45,7 +45,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 Contact
               </button>
               <a
-                href="/resume.pdf"
+                href="/resume1.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="text-white bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -116,7 +116,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 Contact
               </button>
               <a
-                href="/resume.pdf"
+                href="/resume1.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 bg-blue-600/70 hover:bg-blue-500/80"
