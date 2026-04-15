@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { projects } from '../data/projects';
 import FeaturedProject from './FeaturedProject';
+import SectionWrapper from './SectionWrapper';
 
 const categories = ['All', 'Full Stack', 'AI/ML', 'Frontend'];
 
@@ -24,36 +25,30 @@ const Projects = () => {
         className="relative group cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 0.3, delay: index * 0.05 }}
-        whileHover={{ y: -10 }}
+        transition={{ duration: 0.4, delay: index * 0.06 }}
+        whileHover={{ y: -6, scale: 1.01 }}
       >
         <motion.div
-        className="bg-gradient-to-br from-slate-800/60 to-slate-900/60 border border-slate-700/50 rounded-xl p-6 h-full hover:border-blue-400/50 transition-all duration-300 overflow-hidden relative"
-        whileHover={{ boxShadow: '0 20px 40px rgba(59, 130, 246, 0.12)' }}
-      >
-          {/* Decorative animated ring */}
-          <div className="pointer-events-none absolute inset-0 rounded-xl p-[2px] bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-spinSlow z-0" />
-
-          {/* Torch-style glow effect */}
-          <div className="torch-spotlight rounded-xl" />
-
+          className="project-card relative rounded-xl p-6 h-full overflow-hidden transition-all duration-300"
+          whileHover={{ boxShadow: '0 30px 60px rgba(59, 130, 246, 0.18)' }}
+        >
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="relative z-10">
-            {/* Header */}
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start justify-between mb-4 gap-4">
               <div className="flex-1">
                 <span className="text-xs uppercase tracking-wider text-blue-300 font-semibold">{project.category}</span>
-                <h3 className="text-xl font-bold text-white mt-2 group-hover:text-blue-300 transition-colors">
+                <h3 className="text-xl font-bold text-white mt-3 group-hover:text-blue-300 transition-colors">
                   {project.title}
                 </h3>
               </div>
               <motion.button
                 onClick={() => onSelect(project)}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="text-slate-400 hover:text-blue-400 transition-colors p-2 relative z-20"
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+                className="text-slate-300 hover:text-blue-300 transition-colors p-2"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -62,43 +57,38 @@ const Projects = () => {
               </motion.button>
             </div>
 
-            {/* Description */}
             <p className="text-slate-300 text-sm leading-relaxed mb-4 line-clamp-3">
               {project.description}
             </p>
 
-            {/* Tech Stack */}
             <div className="mb-4">
               <div className="flex flex-wrap gap-2">
                 {project.techStack.slice(0, 3).map((tech, tid) => (
                   <motion.span
                     key={tid}
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.05 + tid * 0.1 }}
-                    className="text-xs bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 text-blue-200 px-3 py-1 rounded-full font-medium"
+                    transition={{ delay: index * 0.05 + tid * 0.08 }}
+                    className="text-xs bg-slate-800/70 border border-slate-700/50 text-slate-200 px-3 py-1 rounded-full font-medium"
                   >
                     {tech}
                   </motion.span>
                 ))}
                 {project.techStack.length > 3 && (
-                  <span className="text-xs text-slate-400 px-2 py-1">
-                    +{project.techStack.length - 3} more
-                  </span>
+                  <span className="text-xs text-slate-400 px-2 py-1">+{project.techStack.length - 3} more</span>
                 )}
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-3 relative z-20">
+            <div className="flex gap-3 relative z-10 flex-wrap">
               <motion.a
                 href={project.liveDemo || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-4 py-2 rounded-lg font-medium text-sm text-center transition-all duration-300 pointer-events-auto"
+                className="flex-1 min-w-[120px] bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-4 py-2 rounded-2xl font-medium text-sm text-center transition-all duration-300"
               >
                 Live Demo
               </motion.a>
@@ -106,30 +96,31 @@ const Projects = () => {
                 href={project.githubLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex-1 border border-slate-600 text-slate-200 hover:border-blue-400 hover:bg-blue-400/10 px-4 py-2 rounded-lg font-medium text-sm text-center transition-all duration-300 pointer-events-auto"
+                className="flex-1 min-w-[120px] border border-slate-700 text-slate-200 hover:border-blue-400 hover:bg-blue-400/10 px-4 py-2 rounded-2xl font-medium text-sm text-center transition-all duration-300"
               >
                 GitHub
               </motion.a>
             </div>
           </div>
-        </motion.div>
 
-        {/* Hover overlay effect */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-xl pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-        />
+          <motion.div
+            className="absolute inset-0 rounded-xl pointer-events-none bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.div>
       </motion.div>
     );
   };
 
   return (
-    <section id="projects" className="py-28 bg-slate-950/80 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <SectionWrapper id="projects" className="py-28 bg-slate-950/70 overflow-hidden">
+      <div className="absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-slate-900/90 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-slate-950/80 to-transparent pointer-events-none" />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative">
         <div className="text-center">
           <h2 className="text-5xl md:text-6xl font-bold text-white">Projects</h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto mt-3">Explore production-ready applications, architecture decisions, and modern engineering practices.</p>
@@ -163,16 +154,16 @@ const Projects = () => {
       </div>
 
       {selectedProject && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setSelectedProject(null)}>
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setSelectedProject(null)}>
           <motion.div
-            className="w-full max-w-3xl rounded-3xl border border-slate-600 bg-slate-900 p-4 md:p-5 shadow-2xl"
+            className="w-full max-w-3xl rounded-3xl border border-slate-600 bg-slate-900/95 p-4 md:p-5 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
           >
             <div className="flex items-start justify-between gap-2">
               <div>
-                <p className="text-xs uppercase text-blue-300 tracking-wider font-semibold">Project Modal</p>
+                <p className="text-xs uppercase text-blue-300 tracking-wider font-semibold">Project Details</p>
                 <h3 className="text-2xl font-bold text-white mt-1">{selectedProject.title}</h3>
               </div>
               <button
@@ -185,13 +176,13 @@ const Projects = () => {
             <p className="mt-3 text-slate-300">{selectedProject.description}</p>
 
             <div className="mt-4 grid md:grid-cols-2 gap-3">
-              <div className="bg-slate-800/80 border border-slate-700 p-3 rounded-xl">
+              <div className="glass-panel p-4 rounded-xl">
                 <h4 className="text-xs uppercase tracking-wider font-semibold text-blue-300">Features</h4>
                 <ul className="mt-2 text-slate-200 text-sm list-disc list-inside space-y-1">
                   {selectedProject.features.map((feature, i) => <li key={i}>{feature}</li>)}
                 </ul>
               </div>
-              <div className="bg-slate-800/80 border border-slate-700 p-3 rounded-xl">
+              <div className="glass-panel p-4 rounded-xl">
                 <h4 className="text-xs uppercase tracking-wider font-semibold text-blue-300">Tech Stack</h4>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {selectedProject.techStack.map((tech, i) => <span key={i} className="text-xs bg-blue-500/20 border border-blue-400/20 rounded-full px-2 py-1 text-blue-200">{tech}</span>)}
@@ -200,7 +191,7 @@ const Projects = () => {
             </div>
 
             {selectedProject.iframeSrc && (
-              <div className="mt-4 rounded-xl border border-slate-700 overflow-hidden">
+              <div className="mt-4 rounded-3xl border border-slate-700 overflow-hidden">
                 <iframe src={selectedProject.iframeSrc} title="Live Preview" className="w-full h-56 md:h-72" loading="lazy" />
               </div>
             )}
@@ -212,7 +203,7 @@ const Projects = () => {
           </motion.div>
         </div>
       )}
-    </section>
+    </SectionWrapper>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import SectionWrapper from './SectionWrapper';
 
 const SERVICE_ID = 'service_z6lsnv6';
 const TEMPLATE_ID = 'template_58usukj';
@@ -58,7 +59,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-28 bg-gray-900/50 relative">
+    <SectionWrapper id="contact" className="py-28 bg-gray-900/50 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Let's Connect</h2>
@@ -174,7 +175,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSending}
-                className={`w-full ${isSending ? 'bg-gray-500 cursor-not-allowed' : 'bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500'} text-white py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform ${isSending ? '' : 'hover:scale-105'} shadow-xl shadow-blue-500/20 mt-2`}
+                className={`w-full ${isSending ? 'bg-gray-500 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500'} text-white py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform ${isSending ? '' : 'hover:scale-105'} shadow-xl shadow-blue-500/20 mt-2`}
               >
                 {isSending ? 'Sending...' : 'Send Message'}
               </button>
@@ -182,7 +183,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 };
 

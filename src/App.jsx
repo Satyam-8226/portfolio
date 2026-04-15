@@ -34,7 +34,8 @@ const App = () => {
   );
 
   return (
-    <div className={`${bgClass} min-h-screen overflow-x-hidden transition-colors duration-300`}>
+    <div className={`${bgClass} min-h-screen overflow-x-hidden relative`}>
+      <div className="fixed inset-0 -z-10 page-background" aria-hidden="true" />
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Hero />

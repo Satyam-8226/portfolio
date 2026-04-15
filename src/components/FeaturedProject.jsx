@@ -4,7 +4,7 @@ const FeaturedProject = ({ project }) => {
   if (!project) return null;
 
   return (
-    <section className="bg-linear-to-br from-slate-900 via-slate-800/80 to-slate-900 border border-white/10 backdrop-blur-xl rounded-3xl p-6 md:p-8 shadow-2xl">
+    <section className="glass-panel border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl">
       <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-6 items-start">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold uppercase tracking-wide">
@@ -38,7 +38,7 @@ const FeaturedProject = ({ project }) => {
               href={project.liveDemo || '#'}
               target="_blank"
               rel="noreferrer"
-              className="rounded-xl px-4 py-2 bg-linear-to-r from-blue-600 to-purple-600 text-white font-semibold text-sm border border-transparent transition hover:-translate-y-0.5 hover:scale-[1.01] hover:bg-linear-to-r hover:from-blue-500 hover:to-purple-500"
+              className="rounded-xl px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-sm border border-transparent transition hover:-translate-y-0.5 hover:scale-[1.01] hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500"
             >
               Live Demo
             </a>
@@ -54,7 +54,7 @@ const FeaturedProject = ({ project }) => {
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
-          <div className="h-40 md:h-65 rounded-xl border border-blue-500/20 bg-linear-to-br from-indigo-500/20 via-violet-500/10 to-slate-900 flex items-center justify-center text-center text-slate-200">
+          <div className="h-40 md:h-[260px] rounded-xl border border-blue-500/20 bg-gradient-to-br from-indigo-500/20 via-violet-500/10 to-slate-900 flex items-center justify-center text-center text-slate-200">
             <div>
               <div className="text-sm uppercase tracking-wide text-blue-200">Project at a Glance</div>
               <div className="mt-3 text-xs text-slate-300 leading-relaxed">RideSaathi is a robust full-stack system built with modern APIs, live updates, and secure user flows.</div>

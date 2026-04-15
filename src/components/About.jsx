@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import SectionWrapper from './SectionWrapper';
 
 const About = () => {
   const skills = [
@@ -35,7 +36,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-28 bg-gradient-to-b from-slate-950 to-slate-900 relative">
+    <SectionWrapper id="about" className="py-28 bg-gradient-to-b from-slate-950 to-slate-900 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <motion.h2
@@ -154,7 +155,7 @@ const About = () => {
           </div>
         </motion.div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 };
 
