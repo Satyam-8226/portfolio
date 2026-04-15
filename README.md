@@ -1,5 +1,7 @@
 # Satyam Pandey Portfolio
 
+🔗 **Live Website:** https://portfoliosatyam8226.vercel.app/
+
 A production-ready React + Tailwind portfolio showcasing full-stack work, projects, and developer profiles.
 
 ## Description
@@ -26,19 +28,21 @@ This portfolio site is designed to highlight Satyam’s skills, projects, and pr
 git clone <repo-url>
 cd portfolio
 ```
+
 2. Install dependencies
 ```bash
 npm install
 ```
+
 3. Start dev server
 ```bash
 npm run dev
 ```
+
 4. Build for production
 ```bash
 npm run build
 ```
-
 
 ## Folder Structure
 ```
@@ -61,7 +65,6 @@ postcss.config.js
 package.json
 README.md
 ```
-
 
 ## Project Summary
 A modern, responsive portfolio built with React and Tailwind, featuring smooth UX, project showcases, quick resume access, and developer profile links for Codolio and LeetCode.
