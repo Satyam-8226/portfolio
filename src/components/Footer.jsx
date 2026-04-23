@@ -30,7 +30,7 @@ const Footer = () => {
           {/* LeetCode Stat Card */}
           <div className="bg-slate-900/70 border border-gray-700 rounded-xl px-5 py-4 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 min-w-[160px]">
             <p className="text-xs tracking-widest text-gray-400 uppercase">Problems Solved</p>
-            <h2 className="text-2xl font-bold text-white mt-1">420+</h2>
+            <h2 className="text-2xl font-bold text-white mt-1">440+</h2>
             <p className="text-xs text-gray-500">LeetCode</p>
           </div>
         </div>
