@@ -40,7 +40,7 @@ const Projects = () => {
           className={`project-card relative rounded-xl p-6 h-full overflow-hidden transition-all duration-300 ${isPremium ? 'border border-blue-400/20 shadow-[0_30px_80px_rgba(59,130,246,0.18)] bg-slate-900/90' : 'bg-slate-900/80'}`}
           whileHover={{ boxShadow: '0 30px 60px rgba(59, 130, 246, 0.18)' }}
         >
-          <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="pointer-events-none absolute inset-0 rounded-xl bg-linear-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="relative z-10">
             <div className="flex items-start justify-between mb-4 gap-4">
               <div className="flex-1">
@@ -98,7 +98,7 @@ const Projects = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex-1 min-w-[120px] bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-4 py-2 rounded-2xl font-medium text-sm text-center transition-all duration-300"
+                className="flex-1 min-w-30 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-4 py-2 rounded-2xl font-medium text-sm text-center transition-all duration-300"
               >
                 Live Demo
               </motion.a>
@@ -116,7 +116,7 @@ const Projects = () => {
           </div>
 
           <motion.div
-            className="absolute inset-0 rounded-xl pointer-events-none bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="absolute inset-0 rounded-xl pointer-events-none bg-linear-to-br from-blue-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.3 }}

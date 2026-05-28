@@ -7,11 +7,11 @@ const FeaturedProject = ({ project }) => {
     <section className="glass-panel border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl">
       <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-6 items-start">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold uppercase tracking-wide">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-linear-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold uppercase tracking-wide">
             ⭐ Featured
           </div>
           {project.badge && (
-            <div className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 text-[11px] uppercase tracking-[.22em] font-semibold">
+            <div className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full bg-linear-to-r from-cyan-400 to-blue-500 text-slate-950 text-[11px] uppercase tracking-[.22em] font-semibold">
               {project.badge}
             </div>
           )}
@@ -43,7 +43,7 @@ const FeaturedProject = ({ project }) => {
               href={project.liveDemo || '#'}
               target="_blank"
               rel="noreferrer"
-              className="rounded-xl px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-sm border border-transparent transition hover:-translate-y-0.5 hover:scale-[1.01] hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500"
+              className="rounded-xl px-4 py-2 bg-linear-to-r from-blue-600 to-purple-600 text-white font-semibold text-sm border border-transparent transition hover:-translate-y-0.5 hover:scale-[1.01] hover:bg-linear-to-r hover:from-blue-500 hover:to-purple-500"
             >
               Live Demo
             </a>
@@ -59,7 +59,7 @@ const FeaturedProject = ({ project }) => {
         </div>
 
         <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
-          <div className="h-40 md:h-[260px] rounded-xl border border-blue-500/20 bg-gradient-to-br from-indigo-500/20 via-violet-500/10 to-slate-900 flex items-center justify-center text-center text-slate-200">
+          <div className="h-40 md:h-65 rounded-xl border border-blue-500/20 bg-linear-to-br from-indigo-500/20 via-violet-500/10 to-slate-900 flex items-center justify-center text-center text-slate-200">
             <div>
               <div className="text-sm uppercase tracking-wide text-blue-200">Project at a Glance</div>
               <div className="mt-3 text-xs text-slate-300 leading-relaxed">{project.glance || `${project.title} is a modern application built with secure flows, analytics, and responsive UI.`}</div>

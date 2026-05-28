@@ -81,10 +81,10 @@ const DeveloperProfiles = () => {
                 scale: 1.05,
                 boxShadow: "0 20px 40px rgba(59, 130, 246, 0.2)"
               }}
-              className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-400/50 transition-all duration-300 group"
+              className="bg-linear-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-400/50 transition-all duration-300 group"
             >
               <div className="flex flex-col items-center space-y-4">
-                <div className={`p-3 rounded-full bg-gradient-to-r ${stat.color} group-hover:shadow-lg group-hover:shadow-blue-400/30 transition-all duration-300`}>
+                <div className={`p-3 rounded-full bg-linear-to-r ${stat.color} group-hover:shadow-lg group-hover:shadow-blue-400/30 transition-all duration-300`}>
                   <stat.icon className="w-6 h-6 text-white" />
                 </div>
                 <div>
