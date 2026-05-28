@@ -4,21 +4,26 @@ import { projects } from '../data/projects';
 import FeaturedProject from './FeaturedProject';
 import SectionWrapper from './SectionWrapper';
 
-const categories = ['All', 'Full Stack', 'AI/ML', 'Frontend'];
+const categories = ['All', 'Full Stack', 'Frontend'];
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const filteredProjects = useMemo(() => {
-    if (activeCategory === 'All') return projects;
-    return projects.filter((project) => project.category === activeCategory);
-  }, [activeCategory]);
+  const sortedProjects = useMemo(() => {
+    return [...projects].sort((a, b) => (a.order || 0) - (b.order || 0));
+  }, []);
 
-  const featuredProject = projects.find((project) => project.featured) || projects[0];
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === 'All') return sortedProjects;
+    return sortedProjects.filter((project) => project.category === activeCategory);
+  }, [activeCategory, sortedProjects]);
+
+  const featuredProject = sortedProjects.find((project) => project.featured) || sortedProjects[0];
 
   const ProjectCard = ({ project, index, onSelect }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const isPremium = project.highlight;
 
     return (
       <motion.div
@@ -32,7 +37,7 @@ const Projects = () => {
         whileHover={{ y: -6, scale: 1.01 }}
       >
         <motion.div
-          className="project-card relative rounded-xl p-6 h-full overflow-hidden transition-all duration-300"
+          className={`project-card relative rounded-xl p-6 h-full overflow-hidden transition-all duration-300 ${isPremium ? 'border border-blue-400/20 shadow-[0_30px_80px_rgba(59,130,246,0.18)] bg-slate-900/90' : 'bg-slate-900/80'}`}
           whileHover={{ boxShadow: '0 30px 60px rgba(59, 130, 246, 0.18)' }}
         >
           <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -40,6 +45,11 @@ const Projects = () => {
             <div className="flex items-start justify-between mb-4 gap-4">
               <div className="flex-1">
                 <span className="text-xs uppercase tracking-wider text-blue-300 font-semibold">{project.category}</span>
+                {project.badge && (
+                  <div className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full bg-slate-800/90 border border-slate-700 text-slate-100 text-[11px] uppercase tracking-[.22em] font-semibold mb-2">
+                    {project.badge}
+                  </div>
+                )}
                 <h3 className="text-xl font-bold text-white mt-3 group-hover:text-blue-300 transition-colors">
                   {project.title}
                 </h3>
@@ -98,7 +108,7 @@ const Projects = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex-1 min-w-[120px] border border-slate-700 text-slate-200 hover:border-blue-400 hover:bg-blue-400/10 px-4 py-2 rounded-2xl font-medium text-sm text-center transition-all duration-300"
+                className="flex-1 min-w-30 border border-slate-700 text-slate-200 hover:border-blue-400 hover:bg-blue-400/10 px-4 py-2 rounded-2xl font-medium text-sm text-center transition-all duration-300"
               >
                 GitHub
               </motion.a>
@@ -118,8 +128,8 @@ const Projects = () => {
 
   return (
     <SectionWrapper id="projects" className="py-28 bg-slate-950/70 overflow-hidden">
-      <div className="absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-slate-900/90 to-transparent pointer-events-none" />
-      <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-slate-950/80 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-80 bg-linear-to-b from-slate-900/90 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-72 bg-linear-to-t from-slate-950/80 to-transparent pointer-events-none" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative">
         <div className="text-center">
           <h2 className="text-5xl md:text-6xl font-bold text-white">Projects</h2>

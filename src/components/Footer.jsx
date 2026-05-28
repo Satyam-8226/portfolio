@@ -1,13 +1,18 @@
 import React from 'react';
 import { SiLeetcode } from 'react-icons/si';
 import { FiCode, FiLinkedin, FiGithub } from 'react-icons/fi';
+import { projects } from '../data/projects';
 
 const Footer = () => {
+  const highlightProjects = projects
+    .slice()
+    .sort((a, b) => (a.order || 0) - (b.order || 0))
+    .slice(0, 2);
+
   return (
     <footer className="bg-slate-950 border-t border-slate-800 py-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center flex-wrap gap-6">
-          {/* Social Links Section */}
+        <div className="grid md:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-start">
           <div>
             <p className="text-slate-300 font-semibold">Developer Profiles</p>
             <p className="mt-1 text-slate-400 text-sm">Follow my coding journey and open-source contributions.</p>
@@ -27,11 +32,27 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* LeetCode Stat Card */}
-          <div className="bg-slate-900/70 border border-gray-700 rounded-xl px-5 py-4 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 min-w-[160px]">
-            <p className="text-xs tracking-widest text-gray-400 uppercase">Problems Solved</p>
-            <h2 className="text-2xl font-bold text-white mt-1">450+</h2>
-            <p className="text-xs text-gray-500">LeetCode</p>
+          <div className="bg-slate-900/70 border border-gray-700 rounded-3xl p-6">
+            <p className="text-slate-300 font-semibold uppercase tracking-[.2em] text-xs">Highlighted Projects</p>
+            <div className="mt-5 space-y-4">
+              {highlightProjects.map((project) => (
+                <a
+                  key={project.id}
+                  href={project.liveDemo || project.githubLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block rounded-2xl border border-slate-800 bg-slate-950/80 p-4 transition hover:border-blue-400 hover:bg-slate-900"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-white font-semibold">{project.title}</p>
+                      <p className="text-slate-400 text-sm mt-1">{project.category}</p>
+                    </div>
+                    <span className="text-xs uppercase tracking-[.18em] text-blue-300">View</span>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -36,7 +36,7 @@ const About = () => {
   ];
 
   return (
-    <SectionWrapper id="about" className="py-28 bg-gradient-to-b from-slate-950 to-slate-900 relative">
+    <SectionWrapper id="about" className="py-28 bg-linear-to-b from-slate-950 to-slate-900 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <motion.h2
@@ -105,7 +105,7 @@ const About = () => {
                       whileInView={{ width: `${skill.level}%` }}
                       viewport={{ once: true }}
                       transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full"
+                      className="bg-linear-to-r from-blue-500 to-purple-500 h-2 rounded-full"
                     />
                   </div>
                 </motion.div>
@@ -125,7 +125,7 @@ const About = () => {
           <h3 className="text-3xl font-bold text-white text-center mb-12">Experience Timeline</h3>
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"></div>
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-linear-to-b from-blue-500 to-purple-500"></div>
 
             <div className="space-y-12">
               {experiences.map((exp, index) => (
@@ -138,10 +138,10 @@ const About = () => {
                   className="relative flex items-start gap-8"
                 >
                   {/* Timeline dot */}
-                  <div className="relative z-10 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full border-4 border-slate-900"></div>
+                  <div className="relative z-10 w-4 h-4 bg-linear-to-r from-blue-500 to-purple-500 rounded-full border-4 border-slate-900"></div>
 
                   {/* Content */}
-                  <div className="flex-1 bg-gradient-to-r from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 hover:border-blue-400/50 transition-all duration-300">
+                  <div className="flex-1 bg-linear-to-r from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 hover:border-blue-400/50 transition-all duration-300">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                       <h4 className="text-xl font-bold text-white">{exp.title}</h4>
                       <span className="text-blue-400 font-semibold">{exp.year}</span>

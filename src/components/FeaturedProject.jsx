@@ -7,9 +7,14 @@ const FeaturedProject = ({ project }) => {
     <section className="glass-panel border border-white/10 rounded-3xl p-6 md:p-8 shadow-2xl">
       <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-6 items-start">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold uppercase tracking-wide">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold uppercase tracking-wide">
             ⭐ Featured
           </div>
+          {project.badge && (
+            <div className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 text-[11px] uppercase tracking-[.22em] font-semibold">
+              {project.badge}
+            </div>
+          )}
           <h3 className="mt-4 text-3xl md:text-4xl font-bold text-white">{project.title}</h3>
           <p className="mt-4 text-gray-300 text-base md:text-lg leading-relaxed max-w-2xl">{project.description}</p>
 
@@ -57,12 +62,12 @@ const FeaturedProject = ({ project }) => {
           <div className="h-40 md:h-[260px] rounded-xl border border-blue-500/20 bg-gradient-to-br from-indigo-500/20 via-violet-500/10 to-slate-900 flex items-center justify-center text-center text-slate-200">
             <div>
               <div className="text-sm uppercase tracking-wide text-blue-200">Project at a Glance</div>
-              <div className="mt-3 text-xs text-slate-300 leading-relaxed">RideSaathi is a robust full-stack system built with modern APIs, live updates, and secure user flows.</div>
+              <div className="mt-3 text-xs text-slate-300 leading-relaxed">{project.glance || `${project.title} is a modern application built with secure flows, analytics, and responsive UI.`}</div>
             </div>
           </div>
           <div className="mt-4 text-xs text-slate-300">
             <p className="mb-2">Category: <span className="text-blue-300">{project.category}</span></p>
-            <p>Release: <span className="text-blue-300">Q1 2026</span></p>
+            <p>Release: <span className="text-blue-300">{project.release || 'Q1 2025'}</span></p>
           </div>
         </div>
       </div>
