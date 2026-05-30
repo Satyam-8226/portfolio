@@ -3,18 +3,13 @@ import { motion } from 'framer-motion';
 import SectionWrapper from './SectionWrapper';
 
 const About = () => {
-  const skills = [
-    { name: 'Java', level: 90 },
-    { name: 'Data Structures & Algorithms', level: 85 },
-    { name: 'React.js', level: 90 },
-    { name: 'JavaScript (ES6+)', level: 88 },
-    { name: 'Node.js', level: 85 },
-    { name: 'Express.js', level: 85 },
-    { name: 'MongoDB', level: 80 },
-    { name: 'REST APIs', level: 85 },
-    { name: 'JWT Authentication', level: 80 },
-    { name: 'Git & GitHub', level: 85 }
-  ];
+  const techStack = {
+    'Frontend': ['React.js', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Vite'],
+    'Backend': ['Node.js', 'Express.js', 'REST APIs', 'JWT Authentication', 'Socket.IO'],
+    'Database': ['MongoDB'],
+    'Programming & Problem Solving': ['Java', 'Data Structures & Algorithms'],
+    'Tools': ['Git', 'GitHub', 'Postman', 'VS Code']
+  };
 
   const experiences = [
     {
@@ -108,28 +103,36 @@ const About = () => {
             className="space-y-8"
           >
             <h3 className="text-3xl font-bold text-white">Skills & Technologies</h3>
-            <div className="space-y-4">
-              {skills.map((skill, index) => (
+            
+            <p className="text-gray-300 text-sm leading-relaxed">
+              Focused on building scalable full-stack applications, solving complex problems with DSA, and continuously exploring modern software engineering practices.
+            </p>
+
+            <div className="space-y-6">
+              {Object.entries(techStack).map(([category, technologies], categoryIndex) => (
                 <motion.div
-                  key={skill.name}
+                  key={category}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="space-y-2"
+                  transition={{ delay: categoryIndex * 0.1 }}
+                  className="space-y-3"
                 >
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-200 font-medium">{skill.name}</span>
-                    <span className="text-blue-400 text-sm">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-slate-700 rounded-full h-2">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
-                      className="bg-linear-to-r from-blue-500 to-purple-500 h-2 rounded-full"
-                    />
+                  <h4 className="text-xs font-semibold text-blue-400 uppercase tracking-wider">{category}</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {technologies.map((tech, techIndex) => (
+                      <motion.span
+                        key={tech}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: categoryIndex * 0.1 + techIndex * 0.05 }}
+                        whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' }}
+                        className="px-3 py-1.5 rounded-full bg-linear-to-r from-blue-900/30 to-purple-900/30 border border-blue-400/30 text-gray-200 text-xs font-medium hover:border-blue-400/60 transition-all duration-300 cursor-default"
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
                   </div>
                 </motion.div>
               ))}
