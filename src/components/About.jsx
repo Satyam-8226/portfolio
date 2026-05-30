@@ -4,34 +4,39 @@ import SectionWrapper from './SectionWrapper';
 
 const About = () => {
   const skills = [
+    { name: 'Java', level: 90 },
+    { name: 'Data Structures & Algorithms', level: 85 },
     { name: 'React.js', level: 90 },
-    { name: 'JavaScript (ES6+)', level: 85 },
-    { name: 'Node.js', level: 80 },
-    { name: 'MongoDB', level: 75 },
-    { name: 'HTML5 & CSS3', level: 95 },
-    { name: 'Tailwind CSS', level: 90 },
-    { name: 'Express.js', level: 80 },
+    { name: 'JavaScript (ES6+)', level: 88 },
+    { name: 'Node.js', level: 85 },
+    { name: 'Express.js', level: 85 },
+    { name: 'MongoDB', level: 80 },
+    { name: 'REST APIs', level: 85 },
+    { name: 'JWT Authentication', level: 80 },
     { name: 'Git & GitHub', level: 85 }
   ];
 
   const experiences = [
     {
-      year: '2024',
-      title: 'Full Stack Developer',
-      company: 'Freelance',
-      description: 'Building scalable web applications using React, Node.js, and MongoDB. Focus on clean code and user experience.'
-    },
-    {
-      year: '2023',
-      title: 'Frontend Developer',
-      company: 'Personal Projects',
-      description: 'Developed multiple React applications with modern UI/UX practices and responsive design.'
+      year: '2026',
+      title: 'QuickHire AI',
+      company: 'Full Stack Recruitment Platform',
+      description:
+        'Built an AI-assisted recruitment platform enabling recruiters to post jobs, manage candidates, review resumes, and streamline hiring workflows using React, Node.js, Express.js, MongoDB, and modern web technologies.'
     },
     {
       year: '2025',
-      title: 'Learning Journey',
-      company: 'Self-Taught',
-      description: 'Started my development journey in 2025, focusing on full-stack development using React, Node.js, and modern technologies. Actively building real-world projects and improving problem-solving skills.'
+      title: 'RideSaathi',
+      company: 'Full Stack Ride Sharing Platform',
+      description:
+        'Developed a ride-sharing application connecting drivers and passengers through route-based matching, authentication, real-time tracking, and scalable backend architecture.'
+    },
+    {
+      year: 'Present',
+      title: 'B.Tech Student',
+      company: 'MNNIT Allahabad',
+      description:
+        'Pursuing B.Tech while actively building real-world software projects, strengthening Data Structures & Algorithms, and preparing for Software Engineering roles.'
     }
   ];
 
@@ -54,7 +59,7 @@ const About = () => {
             transition={{ delay: 0.1 }}
             className="text-gray-400 text-lg max-w-2xl mx-auto"
           >
-            Full Stack Developer | Problem Solver | Tech Enthusiast
+            Pre-Final Year B.Tech Student | Full Stack Developer | DSA Enthusiast
           </motion.p>
         </div>
 
@@ -67,12 +72,30 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <h3 className="text-3xl font-bold text-white">Get to know me</h3>
+            <h3 className="text-3xl font-bold text-white">
+              Get to know me
+            </h3>
+
             <p className="text-gray-300 text-lg leading-relaxed">
-              I am a full stack developer with strong skills in React, Node.js, and MongoDB. I enjoy building practical applications that solve real-world problems and improve user experience.
+              I'm Satyam Pandey, a pre-final year B.Tech student at MNNIT Allahabad
+              and a passionate Full Stack Developer. I enjoy building scalable web
+              applications that solve real-world problems while delivering seamless
+              user experiences.
             </p>
+
             <p className="text-gray-300 text-lg leading-relaxed">
-              When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community.
+              My primary expertise lies in the MERN stack, where I have developed
+              end-to-end applications such as RideSaathi, a ride-sharing platform
+              with real-time features, and QuickHire AI, a recruitment platform
+              designed to simplify hiring workflows for recruiters and candidates.
+            </p>
+
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Alongside development, I actively practice Data Structures and
+              Algorithms to strengthen my problem-solving abilities and software
+              engineering fundamentals. I am continuously exploring system design,
+              backend architecture, and modern technologies to build production-ready
+              applications.
             </p>
           </motion.div>
 
@@ -122,7 +145,7 @@ const About = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-20"
         >
-          <h3 className="text-3xl font-bold text-white text-center mb-12">Experience Timeline</h3>
+          <h3 className="text-3xl font-bold text-white text-center mb-12">Development Journey</h3>
           <div className="relative">
             {/* Timeline line */}
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-linear-to-b from-blue-500 to-purple-500"></div>
