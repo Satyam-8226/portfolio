@@ -175,7 +175,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSending}
-                className={`w-full ${isSending ? 'bg-gray-500 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500'} text-white py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform ${isSending ? '' : 'hover:scale-105'} shadow-xl shadow-blue-500/20 mt-2`}
+                className={`w-full ${isSending ? 'bg-gray-500 cursor-not-allowed' : 'bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500'} text-white py-4 px-6 rounded-xl font-semibold transition-all duration-300 transform ${isSending ? '' : 'hover:scale-105'} shadow-xl shadow-blue-500/20 mt-2`}
               >
                 {isSending ? 'Sending...' : 'Send Message'}
               </button>

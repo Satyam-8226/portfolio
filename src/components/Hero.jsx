@@ -80,7 +80,7 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
-            Hi, I'm <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">Satyam</span>
+            Hi, I'm <span className="bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">Satyam</span>
           </h1>
         </motion.div>
 
@@ -124,7 +124,7 @@ const Hero = () => {
             onClick={() => scrollToSection('projects')}
             whileHover={{ scale: 1.04, boxShadow: '0 0 24px rgba(59, 130, 246, 0.35)' }}
             whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-8 py-4 rounded-3xl font-semibold transition-all duration-300 shadow-lg"
+            className="bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-8 py-4 rounded-3xl font-semibold transition-all duration-300 shadow-lg"
           >
             View Projects
           </motion.button>
@@ -139,7 +139,7 @@ const Hero = () => {
           </motion.button>
 
           <motion.a
-            href="/Resume.pdf"
+            href="/updatedResume.pdf"
             target="_blank"
             rel="noreferrer"
             whileHover={{ scale: 1.04, backgroundColor: '#2d3748' }}
@@ -151,7 +151,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 overflow-hidden leading-[0] pointer-events-none">
+      <div className="absolute inset-x-0 bottom-0 overflow-hidden leading-0 pointer-events-none">
         <svg viewBox="0 0 1440 120" className="w-full h-28 opacity-80">
           <path fill="rgba(15,23,42,0.97)" d="M0,32 C144,96 432,0 720,24 C1008,48 1296,96 1440,64 L1440,120 L0,120 Z" />
         </svg>

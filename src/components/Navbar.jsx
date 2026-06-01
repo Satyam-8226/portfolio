@@ -16,7 +16,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="shrink-0">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Satyam Pandey</h1>
+            <h1 className="text-2xl font-bold bg-linear-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Satyam Pandey</h1>
           </div>
           <div className="hidden md:flex md:items-center md:gap-3">
             <div className="ml-10 flex items-baseline space-x-2 md:space-x-4">
@@ -45,7 +45,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 Contact
               </button>
               <a
-                href="/Resume.pdf"
+                href="/updatedResume.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="text-white bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -116,7 +116,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 Contact
               </button>
               <a
-                href="/Resume.pdf"
+                href="/updatedResume.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 bg-blue-600/70 hover:bg-blue-500/80"
