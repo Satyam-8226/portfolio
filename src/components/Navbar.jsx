@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
 
