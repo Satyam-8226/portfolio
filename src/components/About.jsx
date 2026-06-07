@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import SectionWrapper from './SectionWrapper';
-
+updatedResume
 const About = () => {
   const techStack = {
     'Frontend': ['React.js', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Vite'],
