@@ -1,44 +1,51 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const CACHE_KEY = "developer_data_cache";
+const CACHE_DURATION = 12 * 60 * 60 * 1000; // 12 hours
+
 export default function useDeveloperData() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const CACHE_KEY = 'developer_data_cache';
-  const CACHE_DURATION = 12 * 60 * 60 * 1000; // 12 hours
-
   const getCachedData = () => {
     try {
       const cached = localStorage.getItem(CACHE_KEY);
-      if (cached) {
-        const { data: cachedData, timestamp } = JSON.parse(cached);
-        if (Date.now() - timestamp < CACHE_DURATION) {
-          return cachedData;
-        }
+
+      if (!cached) return null;
+
+      const parsed = JSON.parse(cached);
+
+      if (Date.now() - parsed.timestamp < CACHE_DURATION) {
+        return parsed.data;
       }
-    } catch (error) {
-      console.error('Error reading cache:', error);
+
+      return null;
+    } catch {
+      return null;
     }
-    return null;
   };
 
   const setCachedData = (data) => {
     try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({
-        data,
-        timestamp: Date.now()
-      }));
-    } catch (error) {
-      console.error('Error setting cache:', error);
+      localStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({
+          data,
+          timestamp: Date.now(),
+        })
+      );
+    } catch (err) {
+      console.error("Cache write error:", err);
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchGitHubData = async () => {
       try {
         setLoading(true);
+
         const cachedData = getCachedData();
 
         if (cachedData) {
@@ -47,48 +54,42 @@ export default function useDeveloperData() {
           return;
         }
 
-        const username = 'Satyam-8226';
-        const leetcodeUsername = 'satyam8226';
+        const githubUsername = "Satyam-8226";
 
-        // Fetch GitHub data
-        const githubResponse = await axios.get(`https://api.github.com/users/${username}`);
+        const response = await axios.get(
+          `https://api.github.com/users/${githubUsername}`
+        );
 
-        const finalData = {
-          repos: githubResponse.data.public_repos || 0,
-          followers: githubResponse.data.followers || 0,
-          following: githubResponse.data.following || 0,
-          totalStars: 0, // Will be calculated if needed
+        const result = {
+          repos: response.data.public_repos || 0,
+          followers: response.data.followers || 0,
+          following: response.data.following || 0,
         };
 
-        // Try to fetch LeetCode data (optional)
-        try {
-          const leetcodeResponse = await axios.get(`https://leetcode-stats-api.herokuapp.com/${leetcodeUsername}`);
-          if (leetcodeResponse.data && leetcodeResponse.data.totalSolved) {
-            finalData.problemsSolved = leetcodeResponse.data.totalSolved;
-          }
-        } catch (leetcodeError) {
-          console.warn('LeetCode API failed, continuing without it:', leetcodeError);
-          finalData.problemsSolved = 0;
-        }
-
-        setCachedData(finalData);
-        setData(finalData);
+        setCachedData(result);
+        setData(result);
         setError(null);
       } catch (err) {
-        console.error('Error fetching developer data:', err);
-        setError(err);
-        // Try to use cached data as fallback
+        console.error("GitHub data fetch failed:", err);
+
         const cachedData = getCachedData();
+
         if (cachedData) {
           setData(cachedData);
         }
+
+        setError(err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    fetchGitHubData();
   }, []);
 
-  return { data, loading, error };
+  return {
+    data,
+    loading,
+    error,
+  };
 }

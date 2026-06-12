@@ -1,112 +1,184 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaGithub, FaCode, FaUsers } from 'react-icons/fa';
-import useDeveloperData from '../hooks/useDeveloperData';
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  FaGithub,
+  FaUsers,
+  FaCode,
+  FaLaptopCode,
+  FaExternalLinkAlt,
+} from "react-icons/fa";
+import useDeveloperData from "../hooks/useDeveloperData";
 
-const DeveloperProfiles = () => {
+const GitHubStats = () => {
   const { data, loading, error } = useDeveloperData();
 
-  // Don't render if GitHub data failed
-  if (error && !data) {
-    return null;
-  }
+  if (error && !data) return null;
 
-  const statCards = [
+  const stats = [
     {
       icon: FaGithub,
-      label: 'GitHub Repos',
+      label: "Repositories",
       value: data?.repos || 0,
-      loading,
-      color: 'from-blue-500 to-blue-600'
+      gradient: "from-blue-500 to-cyan-500",
     },
     {
       icon: FaUsers,
-      label: 'Followers',
+      label: "Followers",
       value: data?.followers || 0,
-      loading,
-      color: 'from-purple-500 to-purple-600'
-    }
+      gradient: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: FaCode,
+      label: "Problems Solved",
+      value: "500+",
+      gradient: "from-orange-500 to-yellow-500",
+    },
   ];
 
-  // Only add LeetCode if data is available
-  if (data?.problemsSolved && data.problemsSolved > 0) {
-    statCards.push({
+  const profiles = [
+    {
+      title: "GitHub",
+      icon: FaGithub,
+      description:
+        "Explore my repositories, open-source contributions and development activity.",
+      url: "https://github.com/Satyam-8226",
+    },
+    {
+      title: "LeetCode",
       icon: FaCode,
-      label: 'Problems Solved',
-      value: data.problemsSolved,
-      loading,
-      color: 'from-green-500 to-green-600'
-    });
-  }
+      description:
+        "500+ problems solved across Data Structures, Algorithms, Trees, Graphs and Dynamic Programming.",
+      url: "https://leetcode.com/u/Satyam-8226/",
+      badge: "500+ Problems Solved",
+    },
+    {
+      title: "Codolio",
+      icon: FaLaptopCode,
+      description:
+        "Unified coding profile showcasing achievements, coding activity and developer growth.",
+      url: "https://codolio.com/profile/Satyam-8226",
+    },
+  ];
 
   return (
-    <section id="profiles" className="py-28 bg-slate-950/80 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-5xl md:text-6xl font-bold text-white mb-4"
-          >
-            Developer Profiles
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-gray-400 text-lg max-w-2xl mx-auto"
-          >
-            Real-time insights from my coding journey
-          </motion.p>
-        </div>
+    <section
+      id="profiles"
+      className="relative py-28 bg-slate-950 overflow-hidden"
+    >
+      {/* Background Glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 blur-3xl rounded-full" />
+        <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-500/10 blur-3xl rounded-full" />
+      </div>
 
-        {/* Stats Cards */}
+      <div className="relative max-w-7xl mx-auto px-6">
+        {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+          className="text-center mb-16"
         >
-          {statCards.map((stat, index) => (
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">
+            Coding Profiles
+          </h2>
+
+          <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+            A snapshot of my coding journey, problem solving, open-source work,
+            and continuous learning.
+          </p>
+        </motion.div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+          {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 + 0.3 }}
+              transition={{ delay: index * 0.1 }}
               whileHover={{
-                scale: 1.05,
-                boxShadow: "0 20px 40px rgba(59, 130, 246, 0.2)"
+                y: -8,
+                scale: 1.03,
               }}
-              className="bg-linear-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50 rounded-xl p-6 text-center hover:border-blue-400/50 transition-all duration-300 group"
+              className="rounded-3xl border border-slate-700/50 bg-slate-900/50 backdrop-blur-xl p-6"
             >
-              <div className="flex flex-col items-center space-y-4">
-                <div className={`p-3 rounded-full bg-linear-to-r ${stat.color} group-hover:shadow-lg group-hover:shadow-blue-400/30 transition-all duration-300`}>
-                  <stat.icon className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  {stat.loading ? (
-                    <div className="animate-pulse">
-                      <div className="h-8 bg-slate-700 rounded w-16 mx-auto mb-2"></div>
-                      <div className="h-4 bg-slate-700 rounded w-20 mx-auto"></div>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="text-3xl font-bold text-white mb-1">{stat.value.toLocaleString()}</div>
-                      <div className="text-slate-400 text-sm">{stat.label}</div>
-                    </>
-                  )}
-                </div>
+              <div
+                className={`inline-flex p-4 rounded-2xl bg-linear-to-r ${stat.gradient}`}
+              >
+                <stat.icon className="text-white text-2xl" />
               </div>
+
+              {loading ? (
+                <div className="animate-pulse mt-4">
+                  <div className="h-10 bg-slate-700 rounded mb-3" />
+                  <div className="h-4 bg-slate-700 rounded" />
+                </div>
+              ) : (
+                <>
+                  <h3 className="text-4xl font-bold text-white mt-4">
+                    {stat.value}
+                  </h3>
+
+                  <p className="text-slate-400 mt-2">
+                    {stat.label}
+                  </p>
+                </>
+              )}
             </motion.div>
           ))}
-        </motion.div>
+        </div>
+
+        {/* Profile Cards */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {profiles.map((profile, index) => (
+            <motion.a
+              key={profile.title}
+              href={profile.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15 }}
+              whileHover={{
+                y: -10,
+                scale: 1.02,
+              }}
+              className="group rounded-3xl border border-slate-700/50 bg-slate-900/50 backdrop-blur-xl p-7 hover:border-blue-500/40 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-5">
+                <profile.icon className="text-3xl text-blue-400" />
+
+                <FaExternalLinkAlt className="text-slate-500 group-hover:text-blue-400 transition-colors" />
+              </div>
+
+              <h3 className="text-2xl font-bold text-white mb-3">
+                {profile.title}
+              </h3>
+
+              <p className="text-slate-400 leading-relaxed mb-5">
+                {profile.description}
+              </p>
+
+              {profile.badge && (
+                <div className="mb-5">
+                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-orange-500/10 text-orange-400 border border-orange-500/20">
+                    {profile.badge}
+                  </span>
+                </div>
+              )}
+
+              <span className="text-blue-400 font-medium">
+                View Profile →
+              </span>
+            </motion.a>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
-export default DeveloperProfiles;
+export default GitHubStats;
