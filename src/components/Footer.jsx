@@ -38,7 +38,8 @@ const Footer = () => {
               {highlightProjects.map((project) => (
                 <a
                   key={project.id}
-                  href={project.liveDemo || project.githubLink}
+                  // href={project.liveDemo || project.githubLink}
+                  href={project.githubLink}
                   target="_blank"
                   rel="noreferrer"
                   className="block rounded-2xl border border-slate-800 bg-slate-950/80 p-4 transition hover:border-blue-400 hover:bg-slate-900"
