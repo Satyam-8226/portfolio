@@ -39,14 +39,16 @@ const FeaturedProject = ({ project }) => {
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
-            {/* <a
-              href={project.liveDemo || '#'}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-xl px-4 py-2 bg-linear-to-r from-blue-600 to-purple-600 text-white font-semibold text-sm border border-transparent transition hover:-translate-y-0.5 hover:scale-[1.01] hover:bg-linear-to-r hover:from-blue-500 hover:to-purple-500"
-            >
-              Live Demo
-            </a> */}
+            {(project.id === 2 || project.title === 'QuickHire AI') && project.liveDemo && (
+              <a
+                href={project.liveDemo}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-xl px-4 py-2 bg-linear-to-r from-blue-600 to-purple-600 text-white font-semibold text-sm border border-transparent transition hover:-translate-y-0.5 hover:scale-[1.01] hover:bg-linear-to-r hover:from-blue-500 hover:to-purple-500"
+              >
+                Live Demo
+              </a>
+            )}
             <a
               href={project.githubLink}
               target="_blank"

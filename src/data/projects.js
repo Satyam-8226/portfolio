@@ -22,7 +22,7 @@ export const projects = [
     techStack: ["React", "Vite", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "JWT", "Context API"],
     features: ["Candidate authentication", "Recruiter authentication", "Role-based dashboards", "Job posting & management", "Candidate application workflow", "Protected routes", "REST API integration", "Responsive dashboard experience"],
     githubLink: "https://github.com/Satyam-8226/quickhire",
-    liveDemo: "https://quickhire-ai.example.com",
+    liveDemo: "http://16.171.232.137",
     featured: false,
     badge: "Recruitment SaaS",
     highlight: true,

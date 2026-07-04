@@ -92,16 +92,18 @@ const Projects = () => {
             </div>
 
             <div className="flex gap-3 relative z-10 flex-wrap">
-              {/* <motion.a
-                href={project.liveDemo || '#'}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex-1 min-w-30 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-4 py-2 rounded-2xl font-medium text-sm text-center transition-all duration-300"
-              >
-                Live Demo
-              </motion.a> */}
+              {(project.id === 2 || project.title === 'QuickHire AI') && project.liveDemo && (
+                <motion.a
+                  href={project.liveDemo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex-1 min-w-30 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-4 py-2 rounded-2xl font-medium text-sm text-center transition-all duration-300"
+                >
+                  Live Demo
+                </motion.a>
+              )}
               <motion.a
                 href={project.githubLink}
                 target="_blank"
@@ -207,7 +209,9 @@ const Projects = () => {
             )}
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {/* <a href={selectedProject.liveDemo || '#'} target="_blank" rel="noreferrer" className="rounded-lg bg-blue-500 text-white px-3 py-2 text-xs font-medium">Live Demo</a> */}
+              {(selectedProject.id === 2 || selectedProject.title === 'QuickHire AI') && selectedProject.liveDemo && (
+                <a href={selectedProject.liveDemo} target="_blank" rel="noreferrer" className="rounded-lg bg-blue-500 text-white px-3 py-2 text-xs font-medium">Live Demo</a>
+              )}
               <a href={selectedProject.githubLink} target="_blank" rel="noreferrer" className="rounded-lg border border-slate-600 text-slate-200 px-3 py-2 text-xs font-medium">View Code</a>
             </div>
           </motion.div>
